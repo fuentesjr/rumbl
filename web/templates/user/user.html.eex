@@ -1,9 +1,4 @@
 <fieldset>
-  <label>Id:</label>
-  <%= @user.id %>
-</fieldset>
-
-<fieldset>
   <label>Name:</label>
   <%= first_name(@user) %>
 </fieldset>

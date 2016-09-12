@@ -8,28 +8,16 @@
     <h4>Resources</h4>
     <ul>
       <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
+        <a href="https://github.com/fuentesjr/rumbl">Rumbl Source</a>
       </li>
       <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
+        <a href="https://pragprog.com/book/phoenix/programming-phoenix">Phoenix Book</a>
       </li>
       <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
+        <a href="https://hexdocs.pm/phoenix/Phoenix.html">Phoenix Docs</a>
       </li>
       <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
+        <a href="http://elixir-lang.org/docs/stable/elixir/Kernel.html">Elixir Docks</a>
       </li>
     </ul>
   </div>
