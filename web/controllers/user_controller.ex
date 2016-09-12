@@ -14,13 +14,12 @@ defmodule Rumbl.UserController do
   end
 
   def new(conn, _params) do
-    changeset = User.changeset(%User{})
+    changeset = User.Changeset.base(%User{})
     render conn, "new.html", changeset: changeset
   end
 
   def create(conn, %{"user" => user_params}) do
-    #QUESTION: Why not have User.changeset create emtpy User struct?
-    changeset = User.changeset(%User{}, user_params)
+    changeset = User.Changeset.registration(%User{}, user_params)
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
