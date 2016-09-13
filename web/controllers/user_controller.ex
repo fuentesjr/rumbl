@@ -5,7 +5,7 @@ defmodule Rumbl.UserController do
   alias Rumbl.User
 
   defp authenticate(conn, _opts) do
-    case conn.assign.current_user do
+    case conn.assigns.current_user do
       %User{} -> conn
       _ ->
         conn
