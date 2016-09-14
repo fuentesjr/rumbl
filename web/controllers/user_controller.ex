@@ -9,7 +9,7 @@ defmodule Rumbl.UserController do
       %User{} -> conn
       _ ->
         conn
-          |> put_flash(:errror, "User must be logged in to access that page.")
+          |> put_flash(:error, "User must be logged in to access that page.")
           |> redirect(to: page_path(conn, :index))
           |> halt()
     end

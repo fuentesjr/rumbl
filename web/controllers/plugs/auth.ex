@@ -12,6 +12,10 @@ defmodule Rumbl.Auth do
     assign(conn, :current_user, user)
   end
 
+  def logout(conn) do
+    configure_session(conn, drop: true)
+  end
+
   def login(conn, user) do
     conn
       |> assign(:current_user, user)

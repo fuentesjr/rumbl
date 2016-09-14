@@ -3,6 +3,12 @@ defmodule Rumbl.LoginController do
   alias Rumbl.Auth
   alias Rumbl.Repo
 
+  def delete(conn, _) do
+    conn
+      |> Auth.logout()
+      |> redirect(to: page_path(conn, :index))
+  end
+
   def new(conn, _) do
     render conn, "new.html"
   end
