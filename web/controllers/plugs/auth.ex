@@ -12,6 +12,19 @@ defmodule Rumbl.Auth do
     assign(conn, :current_user, user)
   end
 
+  import Phoenix.Controller
+  alias Rumbl.Router.Helpers, as: RouterHelper
+  def authenticate_user(conn, _opts) do
+    case conn.assigns.current_user do
+      %Rumbl.User{} -> conn
+      _ ->
+        conn
+          |> put_flash(:error, "User must be logged in to access that page.")
+          |> redirect(to: RouterHelper.page_path(conn, :index))
+          |> halt()
+    end
+  end
+
   def logout(conn) do
     configure_session(conn, drop: true)
   end
