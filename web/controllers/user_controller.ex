@@ -31,4 +31,13 @@ defmodule Rumbl.UserController do
         render conn, "new.html", changeset: changeset
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    user = Repo.get(User, id)
+    Repo.delete!(user)
+
+    conn
+      |> put_flash(:info, "User (#{user.username}) removed!")
+      |> redirect(to: user_path(conn, :index))
+  end
 end
