@@ -1,6 +1,9 @@
 defmodule Rumbl.VideoController do
   use Rumbl.Web, :controller
   alias Rumbl.Video
+  alias Rumbl.Category
+
+  plug :load_cats when action in [:new, :create, :edit, :update]
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn),
@@ -70,5 +73,11 @@ defmodule Rumbl.VideoController do
     conn
     |> put_flash(:info, "Video deleted successfully.")
     |> redirect(to: video_path(conn, :index))
+  end
+
+  defp load_cats(conn, _) do
+    query = Category.alphabetical |> Category.name_and_ids
+    cats = Repo.all query
+    assign(conn, :cats, cats)
   end
 end
