@@ -11,11 +11,12 @@ defmodule Rumbl.User do
     timestamps
   end
 
-  defmodule Changeset do
+  defmodule Changesets do
     def base(model, params \\ %{}) do
       model
         |> cast(params, [:name,  :username])
         |> validate_length(:username, min: 1, max: 20)
+        |> unique_constraint(:username)
     end
 
     def registration(model, params) do
