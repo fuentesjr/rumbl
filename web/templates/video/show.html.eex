@@ -18,6 +18,11 @@
   </li>
 
   <li>
+    <strong>Slug:</strong>
+    <%= @video.slug %>
+  </li>
+
+  <li>
     <strong>Description:</strong>
     <%= @video.description %>
   </li>
