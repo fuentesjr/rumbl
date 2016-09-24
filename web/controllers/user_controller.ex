@@ -14,6 +14,24 @@ defmodule Rumbl.UserController do
     render conn, "show.html", user: user
   end
 
+  def edit(conn, %{"id" => id}) do
+    chngset = Repo.get!(User, id) |> User.changeset()
+    render conn, "edit.html", user_id: id, changeset: chngset
+  end
+
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    user = Repo.get(User, id)
+    chngset = User.changeset(user, user_params)
+    case Repo.update(chngset) do
+      {:ok, user} ->
+        conn
+          |> put_flash(:info, "User #{user.name} updated!")
+          |> redirect(to: user_path(conn, :show, user.id))
+      {:error, chngset} ->
+        render conn, "edit.html", user_id: user.id, changeset: chngset
+    end
+  end
+
   def new(conn, _params) do
     changeset = User.changeset(%User{})
     render conn, "new.html", changeset: changeset
