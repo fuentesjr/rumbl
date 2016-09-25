@@ -24,6 +24,7 @@ let Video = {
     })
 
     vidChannel.on("new_annot", resp => {
+      vidChannel.params.last_seen_annot_id = resp.id
       this.renderAnnotation(msgContainer, resp)
     })
 
@@ -37,6 +38,10 @@ let Video = {
 
     vidChannel.join()
       .receive("ok", resp => {
+        let annotIds = resp.annotations.map(annot => annot.id)
+        if (annotIds.length > 0) {
+          vidChannel.params.last_seen_annot_id = Math.max(...annotIds)
+        }
         console.log("joined video chan", resp)
         this.scheduleMessages(msgContainer, resp.annotations)
       })

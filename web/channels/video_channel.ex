@@ -1,12 +1,14 @@
 defmodule Rumbl.VideoChannel do
   use Rumbl.Web, :channel
 
-  def join("videos:" <> video_id, _param, socket) do
+  def join("videos:" <> video_id, params, socket) do
     video_id = String.to_integer(video_id)
     video = Repo.get!(Rumbl.Video, video_id)
 
+    last_seen_id = params["last_seen_annot_id"] || 0
     annots = Repo.all(
       from a in assoc(video, :annotations),
+        where: a.id > ^last_seen_id,
         order_by: [asc: a.at, asc: a.id],
         limit: 200,
         preload: [:user]
