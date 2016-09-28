@@ -13,6 +13,10 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 
+// Set up our Elm App
+const elmDiv = document.querySelector("#elm-app")
+const elmApp = Elm.App.embed(elmDiv)
+
 // Import local files
 //
 // Local files can be imported directly using relative

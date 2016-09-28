@@ -6,6 +6,7 @@
     <% end %>
   </div>
 
+  <div id="elm-app"></div>
   <div class="col-sm-5">
     <div class="panel panel-default">
       <div class="panel-heading">
