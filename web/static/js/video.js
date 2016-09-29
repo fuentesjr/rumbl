@@ -1,11 +1,9 @@
 import Player from "./player"
 
 let Video = {
-  init(socket, element) { if (!element) { return }
-    let playerId = element.getAttribute("data-player-id")
-    let videoId = element.getAttribute("data-id")
+  init(socket, elemId, videoId, playerId) { if (!elemId) { return }
     socket.connect();
-    Player.init(element.id, playerId, () => {
+    Player.init(elemId, playerId, () => {
       this.onReady(videoId, socket)
     })
   },
@@ -14,19 +12,24 @@ let Video = {
     let msgContainer = document.getElementById("msg-container")
     let msgInput = document.getElementById("msg-input")
     let postButton = document.getElementById("msg-submit")
-    let vidChannel = socket.channel("videos:" + videoId)
+    //let vidChannel = socket.channel("videos:" + videoId)
 
     postButton.addEventListener("click", e => {
+      /*
       let payload = {body: msgInput.value, at: Player.getCurrentTime()}
       vidChannel.push("new_annot", payload)
                 .receive("error", e => console.log("[ERROR]", e))
+      */
+      this.renderAnnotation(msgContainer, {body: msgInput.value, user:{username: "charlie"}})
       msgInput.value = ""
     })
 
+    /*
     vidChannel.on("new_annot", resp => {
       vidChannel.params.last_seen_annot_id = resp.id
       this.renderAnnotation(msgContainer, resp)
     })
+
 
     msgContainer.addEventListener("click", e => {
       e.preventDefault()
@@ -46,6 +49,7 @@ let Video = {
         this.scheduleMessages(msgContainer, resp.annotations)
       })
       .receive("error", err => console.log("failed to join video chan", err))
+    */
   },
 
   esc(str) {
@@ -57,8 +61,8 @@ let Video = {
   renderAnnotation(msgContainer, {user, body, at}) {
     let template = document.createElement("div")
     template.innerHTML = `
-    <a href="#" data-seek="${this.esc(at)}">
-      [${this.formatTime(at)}]
+    <a href="#" data-seek="${''/*this.esc(at)*/}">
+      [${''/*this.formatTime(at)*/}]
       <b>${this.esc(user.username)}</b>: ${this.esc(body)}
     </a>
     `

@@ -7406,6 +7406,44 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+var _elm_lang$html$Html_App$programWithFlags = _elm_lang$virtual_dom$VirtualDom$programWithFlags;
+var _elm_lang$html$Html_App$program = function (app) {
+	return _elm_lang$html$Html_App$programWithFlags(
+		_elm_lang$core$Native_Utils.update(
+			app,
+			{
+				init: function (_p0) {
+					return app.init;
+				}
+			}));
+};
+var _elm_lang$html$Html_App$beginnerProgram = function (_p1) {
+	var _p2 = _p1;
+	return _elm_lang$html$Html_App$programWithFlags(
+		{
+			init: function (_p3) {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_p2.model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			},
+			update: F2(
+				function (msg, model) {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A2(_p2.update, msg, model),
+						_elm_lang$core$Native_List.fromArray(
+							[]));
+				}),
+			view: _p2.view,
+			subscriptions: function (_p4) {
+				return _elm_lang$core$Platform_Sub$none;
+			}
+		});
+};
+var _elm_lang$html$Html_App$map = _elm_lang$virtual_dom$VirtualDom$map;
+
 var _elm_lang$html$Html_Attributes$attribute = _elm_lang$virtual_dom$VirtualDom$attribute;
 var _elm_lang$html$Html_Attributes$contextmenu = function (value) {
 	return A2(_elm_lang$html$Html_Attributes$attribute, 'contextmenu', value);
@@ -7758,84 +7796,276 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
-var _user$project$App$commentsInputPanel = A2(
-	_elm_lang$html$Html$div,
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode_ops[':='], 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
 	_elm_lang$core$Native_List.fromArray(
-		[
-			_elm_lang$html$Html_Attributes$class('panel-footer')
-		]),
+		['target', 'checked']),
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
 	_elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_elm_lang$html$Html$textarea,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('form-control'),
-					_elm_lang$html$Html_Attributes$id('msg-input'),
-					_elm_lang$html$Html_Attributes$rows(3),
-					_elm_lang$html$Html_Attributes$placeholder('Commment...')
-				]),
+		['target', 'value']),
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
+var _user$project$App$renderAnnotation = function (annot) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html$text(annot)
+			]));
+};
+var _user$project$App$annotationsViewPanel = function (annots) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('panel panel-default')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('panel-heading')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$h3,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('panel-title')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Annotations Elm Widget')
+							]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('panel-body annotations')
+					]),
+				A2(
+					_elm_lang$core$List$map,
+					_user$project$App$renderAnnotation,
+					_elm_lang$core$List$reverse(annots)))
+			]));
+};
+var _user$project$App$prepVideoPlayer = _elm_lang$core$Native_Platform.outgoingPort(
+	'prepVideoPlayer',
+	function (v) {
+		return {domElemId: v.domElemId, ytVideoId: v.ytVideoId};
+	});
+var _user$project$App$playerReady = _elm_lang$core$Native_Platform.incomingPort('playerReady', _elm_lang$core$Json_Decode$bool);
+var _user$project$App$Model = F3(
+	function (a, b, c) {
+		return {playerReady: a, newAnnotation: b, annotations: c};
+	});
+var _user$project$App$init = function () {
+	var vidInfo = {domElemId: 'video', ytVideoId: 'STO-uN0xHDQ'};
+	return {
+		ctor: '_Tuple2',
+		_0: A3(
+			_user$project$App$Model,
+			false,
+			'',
 			_elm_lang$core$Native_List.fromArray(
 				[])),
-			A2(
-			_elm_lang$html$Html$button,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('btn btn-primary form-control'),
-					_elm_lang$html$Html_Attributes$id('msg-submit'),
-					_elm_lang$html$Html_Attributes$type$('submit')
-				]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html$text('Post')
-				]))
-		]));
-var _user$project$App$commentsViewPanel = A2(
-	_elm_lang$html$Html$div,
-	_elm_lang$core$Native_List.fromArray(
-		[
-			_elm_lang$html$Html_Attributes$class('panel panel-default')
-		]),
-	_elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_elm_lang$html$Html$div,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('panel-heading')
-				]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					A2(
-					_elm_lang$html$Html$h3,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html_Attributes$class('panel-title')
-						]),
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html$text('Annotations Elm Widget')
-						]))
-				])),
-			A2(
-			_elm_lang$html$Html$div,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('panel-body annotations'),
-					_elm_lang$html$Html_Attributes$id('msg-container')
-				]),
-			_elm_lang$core$Native_List.fromArray(
-				[]))
-		]));
-var _user$project$App$view = A2(
-	_elm_lang$html$Html$div,
-	_elm_lang$core$Native_List.fromArray(
-		[
-			_elm_lang$html$Html_Attributes$class('col-sm-5')
-		]),
-	_elm_lang$core$Native_List.fromArray(
-		[_user$project$App$commentsViewPanel, _user$project$App$commentsInputPanel]));
-var _user$project$App$main = {main: _user$project$App$view};
+		_1: _user$project$App$prepVideoPlayer(vidInfo)
+	};
+}();
+var _user$project$App$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'NewAnnotation':
+				return {
+					ctor: '_Tuple2',
+					_0: A3(_user$project$App$Model, model.playerReady, _p0._0, model.annotations),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'PlayerReady':
+				return {
+					ctor: '_Tuple2',
+					_0: A3(_user$project$App$Model, _p0._0, model.newAnnotation, model.annotations),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: A3(
+						_user$project$App$Model,
+						model.playerReady,
+						'',
+						A2(_elm_lang$core$List_ops['::'], model.newAnnotation, model.annotations)),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$App$VideoInfo = F2(
+	function (a, b) {
+		return {domElemId: a, ytVideoId: b};
+	});
+var _user$project$App$PostAnnotation = {ctor: 'PostAnnotation'};
+var _user$project$App$PlayerReady = function (a) {
+	return {ctor: 'PlayerReady', _0: a};
+};
+var _user$project$App$subscriptions = function (model) {
+	return _user$project$App$playerReady(_user$project$App$PlayerReady);
+};
+var _user$project$App$NewAnnotation = function (a) {
+	return {ctor: 'NewAnnotation', _0: a};
+};
+var _user$project$App$annotationsInputPanel = function (annotField) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('panel-footer')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$textarea,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('form-control'),
+						_elm_lang$html$Html_Attributes$id('msg-input'),
+						_elm_lang$html$Html_Attributes$rows(3),
+						_elm_lang$html$Html_Attributes$placeholder('Commment...'),
+						_elm_lang$html$Html_Attributes$value(annotField),
+						_elm_lang$html$Html_Events$onInput(_user$project$App$NewAnnotation)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('btn btn-primary form-control'),
+						_elm_lang$html$Html_Attributes$id('msg-submit'),
+						_elm_lang$html$Html_Attributes$type$('submit'),
+						_elm_lang$html$Html_Events$onClick(_user$project$App$PostAnnotation)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Post')
+					]))
+			]));
+};
+var _user$project$App$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('col-sm-5')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$App$annotationsViewPanel(model.annotations),
+				_user$project$App$annotationsInputPanel(model.newAnnotation)
+			]));
+};
+var _user$project$App$main = {
+	main: _elm_lang$html$Html_App$program(
+		{init: _user$project$App$init, view: _user$project$App$view, update: _user$project$App$update, subscriptions: _user$project$App$subscriptions})
+};
 
 var Elm = {};
 Elm['App'] = Elm['App'] || {};

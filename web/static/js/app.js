@@ -12,10 +12,7 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-
-// Set up our Elm App
-const elmDiv = document.querySelector("#elm-app")
-const elmApp = Elm.App.embed(elmDiv)
+import Player from "./player"
 
 // Import local files
 //
@@ -23,7 +20,14 @@ const elmApp = Elm.App.embed(elmDiv)
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import socket from "./socket"
-import Video from "./video"
 
-Video.init(socket, document.getElementById("video"))
+
+// Set up our Elm App
+const elmDiv = document.querySelector("#elm-app")
+const elmApp = Elm.App.embed(elmDiv)
+
+elmApp.ports.prepVideoPlayer.subscribe(function(vidInfo) {
+  Player.init(vidInfo.domElemId, vidInfo.ytVideoId, () => {
+    elmApp.ports.playerReady.send(true);
+  })
+});
